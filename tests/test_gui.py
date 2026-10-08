@@ -36,6 +36,27 @@ def setup_libraries(w, libraries, dest):
     return page
 
 
+def test_welcome_banner(qapp, tmp_path):
+    from mergemusic.gui.app import MergeWizard
+    from mergemusic.gui.banner import Banner
+    w = MergeWizard()
+    w.show()
+    for _ in range(20):
+        QApplication.processEvents()
+    welcome = w.pages[0]
+    assert welcome.banner.loaded() and welcome.banner.isVisible()
+    assert welcome.title() == ''                         # the banner carries the name
+    assert 0 < welcome.banner.height() <= 260
+    # the banner is really drawn: its middle is not the plain window background
+    img = w.grab().toImage()
+    mid = welcome.banner.mapTo(w, welcome.banner.rect().center())
+    assert img.pixelColor(mid) != w.palette().window().color()
+    w.close()
+
+    missing = Banner(str(tmp_path / 'no-such-banner.jpg'))
+    assert not missing.loaded() and missing.heightForWidth(800) == 0
+
+
 def test_wizard_walkthrough(qapp, libraries, tmp_path, fpcalc):
     from mergemusic.gui.app import MergeWizard
     w = MergeWizard()

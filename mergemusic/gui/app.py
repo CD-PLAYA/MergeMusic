@@ -1,12 +1,12 @@
 """MergeMusic window."""
 
-import os
 import sys
 
 from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import QApplication, QMessageBox, QWizard
 
 from .. import APP_NAME, __version__
+from .banner import resource_path
 from .pages import (BuildPage, CleanupPage, HistoryPage, ImportPage, LibrariesPage, ScanPage,
                     TagsPage, WelcomePage)
 from .jobs import JobPanel
@@ -55,12 +55,7 @@ class MergeWizard(QWizard):
 
 
 def icon_path():
-    base = getattr(sys, '_MEIPASS', os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    for p in (os.path.join(base, 'mergemusic', 'resources', 'icon.png'),
-              os.path.join(base, 'resources', 'icon.png')):
-        if os.path.exists(p):
-            return p
-    return None
+    return resource_path('icon.png')
 
 
 def main(args=None):
@@ -75,8 +70,12 @@ def main(args=None):
     w.raise_()
     if '--selftest' in args:            # used by the build to check the bundled app opens
         from PySide6.QtCore import QTimer
+        shot = args[args.index('--screenshot') + 1] if '--screenshot' in args[:-1] else None
         def finish():
-            ok = w.isVisible() and len(w.pageIds()) == 8 and icon_path() is not None
+            ok = (w.isVisible() and len(w.pageIds()) == 8 and icon_path() is not None
+                  and w.pages[0].banner.loaded())
+            if shot:
+                w.grab().save(shot)
             print('GUI self-test: %s (platform %s)' % ('ok' if ok else 'FAILED', app.platformName()))
             app.exit(0 if ok else 1)
         QTimer.singleShot(1500, finish)
