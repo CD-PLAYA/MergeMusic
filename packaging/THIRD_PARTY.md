@@ -1,6 +1,6 @@
-# Third-party software in MusicMerge.app
+# Third-party software in MergeMusic.app
 
-MusicMerge is free software under the GNU General Public License, version 3 or later.
+MergeMusic is free software under the GNU General Public License, version 3 or later.
 The app bundles the following projects, each under its own license:
 
 | Project | Used for | License | Source |

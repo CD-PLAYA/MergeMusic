@@ -15,7 +15,7 @@ JUNK_EXT = {'.itc', '.itc2', '.itl', '.itdb', '.plist', '.strings', '.xml', '.in
             '.db', '.ds_store', '.tmp', '.musicdb'}
 IMAGE_EXT = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tif', '.tiff', '.webp'}
 
-WORK_DIR_NAME = '.musicmerge'
+WORK_DIR_NAME = '.mergemusic'
 
 EDITION_LABEL = re.compile(
     r'[\(\[][^\)\]]*(remaster|explicit|album version|lp version|bonus track)[^\)\]]*[\)\]]', re.I)
@@ -125,7 +125,7 @@ def inside(child, parent):
 
 
 def walk_files(root):
-    """All files below root, skipping hidden files and folders (and MusicMerge's work folder)."""
+    """All files below root, skipping hidden files and folders (and MergeMusic's work folder)."""
     for dirpath, dirnames, filenames in os.walk(root):
         dirnames[:] = sorted(d for d in dirnames if not d.startswith('.'))
         for fn in sorted(filenames):
@@ -150,4 +150,4 @@ def user_data_dir():
         base = os.environ.get('APPDATA', os.path.expanduser('~'))
     else:
         base = os.environ.get('XDG_DATA_HOME', os.path.expanduser('~/.local/share'))
-    return os.path.join(base, 'MusicMerge')
+    return os.path.join(base, 'MergeMusic')

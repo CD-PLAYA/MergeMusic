@@ -1,6 +1,6 @@
 """Fails when any program or library inside the app needs a newer macOS than promised.
 
-  python packaging/check_min_macos.py dist/MusicMerge.app 13.0
+  python packaging/check_min_macos.py dist/MergeMusic.app 13.0
 
 pip picks wheels for the Mac doing the build, so a build on macOS 15 can quietly pull in
 a library that refuses to load on macOS 13. This reads every Mach-O file's minimum

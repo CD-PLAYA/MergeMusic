@@ -39,10 +39,10 @@ def chroma_available():
 
 
 def beets_command(args):
-    """Run beets through MusicMerge's own executable, so it works inside the app bundle."""
+    """Run beets through MergeMusic's own executable, so it works inside the app bundle."""
     if getattr(sys, 'frozen', False):
         return [sys.executable, 'beets'] + list(args)
-    return [sys.executable, '-m', 'musicmerge', 'beets'] + list(args)
+    return [sys.executable, '-m', 'mergemusic', 'beets'] + list(args)
 
 
 def yaml_str(s):
@@ -55,7 +55,7 @@ def write_config(project):
     plugins = ['musicbrainz', 'fetchart', 'embedart', 'inline']
     if chroma_available():
         plugins.insert(1, 'chroma')
-    cfg = '''# Written by MusicMerge. Safe to read; changes are overwritten on the next run.
+    cfg = '''# Written by MergeMusic. Safe to read; changes are overwritten on the next run.
 directory: {dest}
 library: {db}
 statefile: {state}
@@ -140,7 +140,7 @@ def run_tags(project, reporter=None, retry_unmatched=False):
     """Run (or resume) the tag clean-up. Returns counts from beets' library."""
     reporter = reporter or Reporter()
     if not beets_available():
-        raise RuntimeError('beets is not installed. Install it with: pip install "musicmerge[tags]"')
+        raise RuntimeError('beets is not installed. Install it with: pip install "mergemusic[tags]"')
     if not project.done('build'):
         raise RuntimeError('Build the merged folder first.')
     cfg = write_config(project)

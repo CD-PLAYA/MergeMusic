@@ -73,11 +73,11 @@ class StepPage(QWizardPage):
 class WelcomePage(StepPage):
     def __init__(self):
         super().__init__()
-        self.setTitle('Welcome to MusicMerge')
+        self.setTitle('Welcome to MergeMusic')
         self.setSubTitle('Merge your music libraries into one clean library with no duplicates.')
         lay = QVBoxLayout(self)
         lay.addWidget(label(
-            '<p>MusicMerge takes two or more iTunes or Music libraries and builds one new '
+            '<p>MergeMusic takes two or more iTunes or Music libraries and builds one new '
             'library with every song once, in the best copy you have.</p>'
             '<p><b>How it works, one step at a time:</b></p>'
             '<ol>'
@@ -89,7 +89,7 @@ class WelcomePage(StepPage):
             '<li>Bring back play counts, ratings, loved songs and playlists.</li>'
             '<li>See what you can safely delete afterwards.</li>'
             '</ol>'
-            '<p>Every step can be stopped and continued later. MusicMerge never deletes '
+            '<p>Every step can be stopped and continued later. MergeMusic never deletes '
             'anything; the clean-up at the end is up to you.</p>'))
         lay.addStretch(1)
 
@@ -153,7 +153,7 @@ class LibrariesPage(StepPage):
         lay.addLayout(xml_row)
         lay.addWidget(label(
             '<small>The <b>history file</b> holds play counts, ratings and playlists. iTunes keeps '
-            'one next to its media folder and MusicMerge finds it. For a newer Music library, make '
+            'one next to its media folder and MergeMusic finds it. For a newer Music library, make '
             'one in Music with <i>File &gt; Library &gt; Export Library...</i> and choose it here.</small>'))
         lay.addSpacing(8)
         lay.addLayout(dest_row)
@@ -241,7 +241,7 @@ class LibrariesPage(StepPage):
         if not path:
             return
         if not Project(path).exists():
-            QMessageBox.information(self, 'MusicMerge',
+            QMessageBox.information(self, 'MergeMusic',
                                     'That folder does not hold an earlier merge (no %s folder inside).'
                                     % WORK_DIR_NAME)
             return
@@ -593,7 +593,7 @@ class HistoryPage(StepPage):
                 '<p>%d songs had play counts, ratings or loves, and there are %d playlists. '
                 'First <b>Check</b>: it only reads Music and shows what it can find. Then '
                 '<b>Restore</b> writes them into the new library.</p>'
-                '<p><small>macOS will ask to let MusicMerge control Music: choose Allow. '
+                '<p><small>macOS will ask to let MergeMusic control Music: choose Allow. '
                 '"Date Added" cannot be carried over, because Music does not allow it. '
                 'Running Restore again is safe; existing playlists are left alone.</small></p>'
                 % (n.get('history_songs', 0), n.get('playlists', 0)))
@@ -609,7 +609,7 @@ class HistoryPage(StepPage):
 
     def _run(self, apply):
         if apply and QMessageBox.question(
-                self, 'MusicMerge', 'Write play counts, ratings, loved songs and playlists into the '
+                self, 'MergeMusic', 'Write play counts, ratings, loved songs and playlists into the '
                 'Music library that is open now?') != QMessageBox.Yes:
             return
         p = self.project
@@ -643,7 +643,7 @@ class CleanupPage(StepPage):
         lay.addWidget(self.panel)
         lay.addLayout(self.reveal_row)
         lay.addWidget(label(
-            '<p><b>MusicMerge never deletes anything.</b> When you are happy with the new library, '
+            '<p><b>MergeMusic never deletes anything.</b> When you are happy with the new library, '
             'move the old library folders to the Trash yourself. Keep the merged folder and the '
             'new Music library. The <i>%s</i> folder inside the merged folder holds the plan and '
             'reports; delete it whenever you like.</p>' % WORK_DIR_NAME))

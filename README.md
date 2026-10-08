@@ -1,12 +1,12 @@
-<p align="center"><img src="musicmerge/resources/icon.png" width="128" alt="MusicMerge icon"></p>
+<p align="center"><img src="mergemusic/resources/icon.png" width="128" alt="MergeMusic icon"></p>
 
-# MusicMerge
+# MergeMusic
 
 **Merge two or more iTunes or Music libraries into one clean library, with every song once, in the best copy you have.**
 
-MusicMerge is a free, open-source Mac app that walks you through the merge one step at a time. It finds duplicates by their tags *and* by their sound, keeps the best-quality copy, optionally fixes tags and cover art from MusicBrainz, and brings your play counts, ratings, loved songs and playlists into a fresh Music library.
+MergeMusic is a free, open-source Mac app that walks you through the merge one step at a time. It finds duplicates by their tags *and* by their sound, keeps the best-quality copy, optionally fixes tags and cover art from MusicBrainz, and brings your play counts, ratings, loved songs and playlists into a fresh Music library.
 
-Your original libraries are never changed, and MusicMerge never deletes anything.
+Your original libraries are never changed, and MergeMusic never deletes anything.
 
 ## The steps
 
@@ -30,47 +30,47 @@ Anything doubtful is kept, not dropped: when the tags agree but the audio does n
 
 ## Download and first launch
 
-Download the zip for your Mac from [Releases](https://github.com/CD-PLAYA/music-merge/releases): **x86_64** for Intel Macs, **arm64** for Apple Silicon. It needs macOS 13 Ventura or later.
+Download the zip for your Mac from [Releases](https://github.com/CD-PLAYA/merge-music/releases): **x86_64** for Intel Macs, **arm64** for Apple Silicon. It needs macOS 13 Ventura or later.
 
 The app is not signed with an Apple Developer ID, so macOS blocks it the first time:
 
-1. Unzip it and move **MusicMerge** to Applications.
+1. Unzip it and move **MergeMusic** to Applications.
 2. Open it. When macOS says it cannot be opened, click **Done**.
-3. Open **System Settings > Privacy & Security**, scroll down, and click **Open Anyway** next to the MusicMerge message.
+3. Open **System Settings > Privacy & Security**, scroll down, and click **Open Anyway** next to the MergeMusic message.
 
-Or, in Terminal: `xattr -dr com.apple.quarantine /Applications/MusicMerge.app`
+Or, in Terminal: `xattr -dr com.apple.quarantine /Applications/MergeMusic.app`
 
-When you reach the play-history step, macOS asks whether MusicMerge may control Music. Choose **Allow**.
+When you reach the play-history step, macOS asks whether MergeMusic may control Music. Choose **Allow**.
 
 ## Run from source
 
 ```bash
-git clone https://github.com/CD-PLAYA/music-merge.git
-cd music-merge
+git clone https://github.com/CD-PLAYA/merge-music.git
+cd merge-music
 python3 -m venv .venv
 .venv/bin/pip install -e ".[tags]"
-.venv/bin/musicmerge                     # opens the app window
+.venv/bin/mergemusic                     # opens the app window
 ```
 
-Python 3.10 or newer. The fingerprint tool (`fpcalc` from [Chromaprint](https://github.com/acoustid/chromaprint)) is offered as a one-click download inside the app, or run `musicmerge fpcalc --download`. Leave out `[tags]` if you do not want the MusicBrainz step.
+Python 3.10 or newer. The fingerprint tool (`fpcalc` from [Chromaprint](https://github.com/acoustid/chromaprint)) is offered as a one-click download inside the app, or run `mergemusic fpcalc --download`. Leave out `[tags]` if you do not want the MusicBrainz step.
 
 ### Command line
 
 Every step also runs from the command line:
 
 ```bash
-musicmerge plan "/Volumes/Drive/Merged" --library "/Volumes/Drive/iTunes" --library "/Volumes/Drive/Music"
-musicmerge build "/Volumes/Drive/Merged"
-musicmerge tags "/Volumes/Drive/Merged"            # optional, slow
-musicmerge music-status "/Volumes/Drive/Merged"
-musicmerge history "/Volumes/Drive/Merged"         # check only
-musicmerge history "/Volumes/Drive/Merged" --apply
-musicmerge cleanup "/Volumes/Drive/Merged" --save-extras "/Volumes/Drive/Extras"
+mergemusic plan "/Volumes/Drive/Merged" --library "/Volumes/Drive/iTunes" --library "/Volumes/Drive/Music"
+mergemusic build "/Volumes/Drive/Merged"
+mergemusic tags "/Volumes/Drive/Merged"            # optional, slow
+mergemusic music-status "/Volumes/Drive/Merged"
+mergemusic history "/Volumes/Drive/Merged"         # check only
+mergemusic history "/Volumes/Drive/Merged" --apply
+mergemusic cleanup "/Volumes/Drive/Merged" --save-extras "/Volumes/Drive/Extras"
 ```
 
 ## Good to know
 
-- **Play history comes from the library's XML file.** iTunes keeps `iTunes Music Library.xml` next to its media folder, and MusicMerge finds it. For a newer Music library, make one in Music with *File > Library > Export Library...*.
+- **Play history comes from the library's XML file.** iTunes keeps `iTunes Music Library.xml` next to its media folder, and MergeMusic finds it. For a newer Music library, make one in Music with *File > Library > Export Library...*.
 - **Date Added cannot be carried over.** Music does not let any script change it, so songs show the day you imported them.
 - **Smart playlists are not copied.** Their rules are stored in a private format.
 - **The tag step takes hours on a big library** (roughly 12 seconds per album) because MusicBrainz allows about one lookup per second. Albums you only have part of usually keep their own tags, because MusicBrainz will not confirm an album with songs missing. Copy-protected purchases and the *Unknown Artist* folder are left alone.
@@ -79,18 +79,18 @@ musicmerge cleanup "/Volumes/Drive/Merged" --save-extras "/Volumes/Drive/Extras"
 - **Podcasts and audiobooks** in the old folders are treated like songs.
 - **Windows and Linux:** the scan, build, tag and clean-up steps are written to work there, but are untested. The play-history step needs the Music app on a Mac.
 
-## Where MusicMerge keeps its work
+## Where MergeMusic keeps its work
 
-Everything MusicMerge writes, apart from the merged songs, goes in a hidden `.musicmerge` folder inside the merged library: the plan (`plan.csv`), the review list, a map of every original file to its merged copy, the tag step's database, and reports. Delete it once you are done.
+Everything MergeMusic writes, apart from the merged songs, goes in a hidden `.mergemusic` folder inside the merged library: the plan (`plan.csv`), the review list, a map of every original file to its merged copy, the tag step's database, and reports. Delete it once you are done.
 
 ## Status
 
 Version 0.1, first public release. The engine started as scripts that merged a real two-library collection of about 7,900 audio files into one library of 6,096 songs, restored its play history and playlists in Music, and freed the duplicate space. The app wraps the same engine in a window and adds any number of libraries, resuming, and the clean-up step.
 
-Automated tests build sample libraries in real formats (AAC, MP3, AIFF, copy-protected names, untagged copies, broken files) and run the scan, build, tag and clean-up steps on Linux and macOS, including a live MusicBrainz match. The scripts that talk to the Music app are tested against a stand-in for Music, and they ran for real on that first library, but the packaged app has only been built and smoke-tested automatically so far. If something goes wrong, please [open an issue](https://github.com/CD-PLAYA/music-merge/issues) and attach the files from the `.musicmerge` folder if you can.
+Automated tests build sample libraries in real formats (AAC, MP3, AIFF, copy-protected names, untagged copies, broken files) and run the scan, build, tag and clean-up steps on Linux and macOS, including a live MusicBrainz match. The scripts that talk to the Music app are tested against a stand-in for Music, and they ran for real on that first library, but the packaged app has only been built and smoke-tested automatically so far. If something goes wrong, please [open an issue](https://github.com/CD-PLAYA/merge-music/issues) and attach the files from the `.mergemusic` folder if you can.
 
 ## License
 
-MusicMerge is free software under the [GNU General Public License v3](LICENSE) or later. It builds on [Mutagen](https://github.com/quodlibet/mutagen), [Chromaprint](https://github.com/acoustid/chromaprint), [beets](https://github.com/beetbox/beets), [Qt for Python](https://wiki.qt.io/Qt_for_Python), and data from [MusicBrainz](https://musicbrainz.org) and [AcoustID](https://acoustid.org). See [packaging/THIRD_PARTY.md](packaging/THIRD_PARTY.md).
+MergeMusic is free software under the [GNU General Public License v3](LICENSE) or later. It builds on [Mutagen](https://github.com/quodlibet/mutagen), [Chromaprint](https://github.com/acoustid/chromaprint), [beets](https://github.com/beetbox/beets), [Qt for Python](https://wiki.qt.io/Qt_for_Python), and data from [MusicBrainz](https://musicbrainz.org) and [AcoustID](https://acoustid.org). See [packaging/THIRD_PARTY.md](packaging/THIRD_PARTY.md).
 
 Built alongside Claude

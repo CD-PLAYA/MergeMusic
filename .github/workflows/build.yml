@@ -1,10 +1,12 @@
 name: Build the Mac app
 
+# Runs on every pull request (to check the app still builds), on demand, and when a
+# release is published on GitHub: then both zips are attached to that release.
 on:
-  push:
-    tags: ['v*']
   pull_request:
   workflow_dispatch:
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -18,16 +20,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Build MusicMerge.app
+      - name: Build MergeMusic.app
         run: bash packaging/build_macos.sh
       - uses: actions/upload-artifact@v4
         with:
-          name: MusicMerge-${{ matrix.runner }}
+          name: MergeMusic-${{ matrix.runner }}
           path: dist/*.zip
           if-no-files-found: error
 
-  release:
-    if: startsWith(github.ref, 'refs/tags/v')
+  attach:
+    if: github.event_name == 'release'
     needs: build
     runs-on: ubuntu-latest
     permissions:
@@ -37,11 +39,7 @@ jobs:
         with:
           path: dist
           merge-multiple: true
-      - name: Publish the release
+      - name: Attach the app to the release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release create "${{ github.ref_name }}" dist/*.zip \
-            --repo "${{ github.repository }}" \
-            --title "MusicMerge ${{ github.ref_name }}" \
-            --notes "Download the zip for your Mac: x86_64 for Intel, arm64 for Apple Silicon. See the README for opening the app the first time."
+        run: gh release upload "${{ github.event.release.tag_name }}" dist/*.zip --clobber --repo "${{ github.repository }}"

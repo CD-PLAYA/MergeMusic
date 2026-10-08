@@ -5,7 +5,7 @@
                   from the old library XML files into the new Music library
 
 Uses JavaScript for Automation through osascript. The first time, macOS asks whether
-MusicMerge (or Terminal) may control Music; the answer must be Allow.
+MergeMusic (or Terminal) may control Music; the answer must be Allow.
 Music does not let scripts change 'Date Added', so that one cannot be carried over."""
 
 import csv
@@ -133,7 +133,7 @@ def run_jxa(script_path, args, timeout=3600):
     if res.returncode != 0:
         msg = (res.stderr or res.stdout).strip()
         if '-1743' in msg or 'Not authorized' in msg:
-            msg = ('macOS did not allow MusicMerge to control Music. Open System Settings > '
+            msg = ('macOS did not allow MergeMusic to control Music. Open System Settings > '
                    'Privacy & Security > Automation and allow it to control Music, then try again.')
         raise RuntimeError(msg or 'osascript failed (code %d)' % res.returncode)
     return json.loads(res.stdout.strip())

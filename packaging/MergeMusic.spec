@@ -1,4 +1,4 @@
-# PyInstaller spec for MusicMerge.app. Build with packaging/build_macos.sh.
+# PyInstaller spec for MergeMusic.app. Build with packaging/build_macos.sh.
 # -*- mode: python -*-
 import os
 import sys
@@ -7,13 +7,13 @@ from PyInstaller.utils.hooks import collect_data_files, collect_submodules
 
 ROOT = os.path.abspath(os.path.join(SPECPATH, '..'))
 sys.path.insert(0, ROOT)
-from musicmerge import __version__  # noqa: E402
+from mergemusic import __version__  # noqa: E402
 
 hidden = (collect_submodules('beets') + collect_submodules('beetsplug') +
-          collect_submodules('musicmerge') + ['acoustid', 'audioread', 'mediafile', 'confuse'])
+          collect_submodules('mergemusic') + ['acoustid', 'audioread', 'mediafile', 'confuse'])
 datas = (collect_data_files('beets') + collect_data_files('beetsplug') +
          collect_data_files('mediafile') + collect_data_files('confuse') +
-         [(os.path.join(ROOT, 'musicmerge', 'resources'), os.path.join('musicmerge', 'resources'))])
+         [(os.path.join(ROOT, 'mergemusic', 'resources'), os.path.join('mergemusic', 'resources'))])
 binaries = []
 fpcalc = os.path.join(ROOT, 'build', 'fpcalc')
 if os.path.exists(fpcalc):
@@ -27,25 +27,25 @@ a = Analysis([os.path.join(ROOT, 'packaging', 'launcher.py')],
                        'PySide6.QtCharts', 'PySide6.QtDataVisualization', 'PySide6.QtPdf'],
              noarchive=False)
 pyz = PYZ(a.pure)
-exe = EXE(pyz, a.scripts, [], exclude_binaries=True, name='MusicMerge', console=False,
+exe = EXE(pyz, a.scripts, [], exclude_binaries=True, name='MergeMusic', console=False,
           argv_emulation=False, upx=False)
-coll = COLLECT(exe, a.binaries, a.datas, name='MusicMerge', upx=False)
+coll = COLLECT(exe, a.binaries, a.datas, name='MergeMusic', upx=False)
 app = BUNDLE(
     coll,
-    name='MusicMerge.app',
-    icon=os.path.join(ROOT, 'musicmerge', 'resources', 'icon.png'),
-    bundle_identifier='io.github.cd-playa.musicmerge',
+    name='MergeMusic.app',
+    icon=os.path.join(ROOT, 'mergemusic', 'resources', 'icon.png'),
+    bundle_identifier='io.github.cd-playa.mergemusic',
     version=__version__,
     info_plist={
-        'CFBundleName': 'MusicMerge',
-        'CFBundleDisplayName': 'MusicMerge',
+        'CFBundleName': 'MergeMusic',
+        'CFBundleDisplayName': 'MergeMusic',
         'CFBundleShortVersionString': __version__,
         'CFBundleVersion': __version__,
         'LSMinimumSystemVersion': '13.0',
         'NSHighResolutionCapable': True,
         'NSAppleEventsUsageDescription':
-            'MusicMerge uses the Music app to count your songs and to restore play counts, '
+            'MergeMusic uses the Music app to count your songs and to restore play counts, '
             'ratings, loved songs and playlists.',
-        'NSHumanReadableCopyright': 'GPL-3.0-or-later. https://github.com/CD-PLAYA/music-merge',
+        'NSHumanReadableCopyright': 'GPL-3.0-or-later. https://github.com/CD-PLAYA/merge-music',
     },
 )

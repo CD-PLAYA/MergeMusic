@@ -9,12 +9,12 @@ import sys
 
 import pytest
 
-from musicmerge.core.build import build_merged
-from musicmerge.core.cleanup import cleanup_report, cleanup_text, save_extras
-from musicmerge.core.common import Reporter, is_mac
-from musicmerge.core.music_app import HISTORY_JS, STATUS_JS, history_data, iso_utc
-from musicmerge.core.plan import build_plan
-from musicmerge.core.project import Project, find_xml
+from mergemusic.core.build import build_merged
+from mergemusic.core.cleanup import cleanup_report, cleanup_text, save_extras
+from mergemusic.core.common import Reporter, is_mac
+from mergemusic.core.music_app import HISTORY_JS, STATUS_JS, history_data, iso_utc
+from mergemusic.core.plan import build_plan
+from mergemusic.core.project import Project, find_xml
 
 
 def plan_rows(project):
@@ -227,7 +227,7 @@ def test_history_script_against_mock_music(planned, tmp_path):
     js.write_text(HISTORY_JS.replace('__DATA__', json.dumps(data)), encoding='utf-8')
     mock = tmp_path / 'mock.js'
     mock.write_text(MOCK)
-    library = [os.path.join(dp, f) for dp, _, fs in os.walk(project.dest) if '.musicmerge' not in dp
+    library = [os.path.join(dp, f) for dp, _, fs in os.walk(project.dest) if '.mergemusic' not in dp
                for f in fs]
     out = subprocess.run(['node', str(mock), json.dumps(library), str(js)], capture_output=True, text=True)
     assert out.returncode == 0, out.stderr
@@ -257,11 +257,11 @@ def test_music_scripts_compile(tmp_path):
 def test_cli_plan_and_build(libraries, tmp_path, fpcalc):
     dest = str(tmp_path / 'CLI Merged')
     env = dict(os.environ, PYTHONPATH=os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    out = subprocess.run([sys.executable, '-m', 'musicmerge', 'plan', dest, '--library', libraries['a'],
+    out = subprocess.run([sys.executable, '-m', 'mergemusic', 'plan', dest, '--library', libraries['a'],
                           '--library', libraries['b']], capture_output=True, text=True, env=env)
     assert out.returncode == 0, out.stderr
     assert 'Keep 12 files' in out.stdout and 'iTunes Music Library.xml' in out.stdout
-    out = subprocess.run([sys.executable, '-m', 'musicmerge', 'build', dest], capture_output=True,
+    out = subprocess.run([sys.executable, '-m', 'mergemusic', 'build', dest], capture_output=True,
                          text=True, env=env)
     assert out.returncode == 0, out.stderr
     assert 'Checked in place: 12 of 12' in out.stdout

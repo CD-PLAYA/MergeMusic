@@ -1,13 +1,13 @@
-"""Command line for MusicMerge. With no arguments it opens the step-by-step window.
+"""Command line for MergeMusic. With no arguments it opens the step-by-step window.
 
-  musicmerge                                   open the app window
-  musicmerge plan DEST --library PATH [--library PATH ...] [--xml N=FILE] [--no-fingerprints]
-  musicmerge build DEST [--dry-run]
-  musicmerge tags DEST [--retry-unmatched]
-  musicmerge music-status DEST                 (Mac)
-  musicmerge history DEST [--apply]            (Mac)
-  musicmerge cleanup DEST [--save-extras FOLDER]
-  musicmerge fpcalc [--download]
+  mergemusic                                   open the app window
+  mergemusic plan DEST --library PATH [--library PATH ...] [--xml N=FILE] [--no-fingerprints]
+  mergemusic build DEST [--dry-run]
+  mergemusic tags DEST [--retry-unmatched]
+  mergemusic music-status DEST                 (Mac)
+  mergemusic history DEST [--apply]            (Mac)
+  mergemusic cleanup DEST [--save-extras FOLDER]
+  mergemusic fpcalc [--download]
 """
 
 import argparse
@@ -129,7 +129,7 @@ def main(argv=None):
         from .gui.app import main as gui_main
         return gui_main(argv[1:] if argv and argv[0] == 'gui' else [])
 
-    ap = argparse.ArgumentParser(prog='musicmerge', description='%s %s' % (APP_NAME, __version__))
+    ap = argparse.ArgumentParser(prog='mergemusic', description='%s %s' % (APP_NAME, __version__))
     ap.add_argument('--version', action='version', version=__version__)
     sub = ap.add_subparsers(dest='cmd', required=True)
 

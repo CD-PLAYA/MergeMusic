@@ -17,7 +17,7 @@ def libraries(tmp_path_factory):
 
 @pytest.fixture
 def project(libraries, tmp_path):
-    from musicmerge.core.project import Project
+    from mergemusic.core.project import Project
     p = Project(str(tmp_path / 'Merged'))
     p.set_libraries([{'path': libraries['a'], 'xml': libraries['xml']},
                      {'path': libraries['b'], 'xml': ''}])
@@ -27,8 +27,8 @@ def project(libraries, tmp_path):
 
 @pytest.fixture(scope='session')
 def fpcalc():
-    from musicmerge.core.fingerprint import find_fpcalc
+    from mergemusic.core.fingerprint import find_fpcalc
     path = find_fpcalc()
     if not path:
-        pytest.skip('fpcalc not installed (python -m musicmerge fpcalc --download)')
+        pytest.skip('fpcalc not installed (python -m mergemusic fpcalc --download)')
     return path

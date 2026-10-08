@@ -1,4 +1,4 @@
-"""MusicMerge window."""
+"""MergeMusic window."""
 
 import os
 import sys
@@ -56,7 +56,7 @@ class MergeWizard(QWizard):
 
 def icon_path():
     base = getattr(sys, '_MEIPASS', os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    for p in (os.path.join(base, 'musicmerge', 'resources', 'icon.png'),
+    for p in (os.path.join(base, 'mergemusic', 'resources', 'icon.png'),
               os.path.join(base, 'resources', 'icon.png')):
         if os.path.exists(p):
             return p
