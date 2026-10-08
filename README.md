@@ -8,6 +8,17 @@ MergeMusic is a free, open-source Mac app that walks you through the merge one s
 
 Your original libraries are never changed, and MergeMusic never deletes anything.
 
+<table>
+  <tr>
+    <td width="50%" align="center"><img src="docs/images/welcome.png" alt="The MergeMusic Welcome screen, listing the seven steps"><br><sub>Welcome</sub></td>
+    <td width="50%" align="center"><img src="docs/images/choose-libraries.png" alt="Two libraries added, and a new folder chosen for the merged library"><br><sub>Choose your libraries</sub></td>
+  </tr>
+  <tr>
+    <td width="50%" align="center"><img src="docs/images/find-duplicates.png" alt="Scan results: 53 duplicate groups found, 137 files kept, 53 duplicate copies left out"><br><sub>Find duplicates</sub></td>
+    <td width="50%" align="center"><img src="docs/images/clean-up-tags.png" alt="The optional tag clean-up looking up 24 albums on MusicBrainz"><br><sub>Clean up tags (optional)</sub></td>
+  </tr>
+</table>
+
 ## The steps
 
 1. **Choose your libraries** and a new, empty folder for the result. Put the library whose play history matters most first.
