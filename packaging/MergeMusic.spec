@@ -46,6 +46,6 @@ app = BUNDLE(
         'NSAppleEventsUsageDescription':
             'MergeMusic uses the Music app to count your songs and to restore play counts, '
             'ratings, loved songs and playlists.',
-        'NSHumanReadableCopyright': 'GPL-3.0-or-later. https://github.com/CD-PLAYA/merge-music',
+        'NSHumanReadableCopyright': 'GPL-3.0-or-later. https://github.com/CD-PLAYA/MergeMusic',
     },
 )
