@@ -25,7 +25,9 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: MergeMusic-${{ matrix.runner }}
-          path: dist/*.zip
+          path: |
+            dist/*.zip
+            dist/*.png
           if-no-files-found: error
 
   attach:

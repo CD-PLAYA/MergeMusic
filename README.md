@@ -1,4 +1,4 @@
-<p align="center"><img src="mergemusic/resources/icon.png" width="128" alt="MergeMusic icon"></p>
+<p align="center"><img src="mergemusic/resources/banner.jpg" width="100%" alt="MergeMusic: merge iTunes and Music libraries into one"></p>
 
 # MergeMusic
 

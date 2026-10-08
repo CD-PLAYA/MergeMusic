@@ -16,6 +16,7 @@ from ..core.fingerprint import download_fpcalc, find_fpcalc
 from ..core.plan import build_plan, summary_text
 from ..core.project import Project, find_xml
 from ..core.tags import album_folders, beets_available, run_tags, tags_text
+from .banner import Banner
 from .jobs import JobPanel
 
 SECONDS_PER_ALBUM = 12      # measured on a real library: MusicBrainz + AcoustID lookups
@@ -73,10 +74,15 @@ class StepPage(QWizardPage):
 class WelcomePage(StepPage):
     def __init__(self):
         super().__init__()
-        self.setTitle('Welcome to MergeMusic')
-        self.setSubTitle('Merge your music libraries into one clean library with no duplicates.')
+        # No title here: the banner carries the name. Without a banner, fall back to a title.
+        self.banner = Banner()
+        if not self.banner.loaded():
+            self.setTitle('Welcome to MergeMusic')
         lay = QVBoxLayout(self)
+        lay.addWidget(self.banner)
+        lay.addSpacing(6)
         lay.addWidget(label(
+            '<p><b>Merge your music libraries into one clean library with no duplicates.</b></p>'
             '<p>MergeMusic takes two or more iTunes or Music libraries and builds one new '
             'library with every song once, in the best copy you have.</p>'
             '<p><b>How it works, one step at a time:</b></p>'

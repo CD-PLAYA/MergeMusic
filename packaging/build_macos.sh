@@ -50,8 +50,10 @@ printf 'directory: %s\nlibrary: %s/lib.db\nplugins: [musicbrainz, chroma, fetcha
 BEETSDIR="$BD" "$APP" beets -c "$BD/config.yaml" version | tee "$BD/out.txt"
 grep -q 'plugins: chroma, embedart, fetchart, inline, musicbrainz' "$BD/out.txt"
 QT_QPA_PLATFORM=offscreen "$APP" gui --selftest
-# the real window system; reported, not fatal, since build machines may have no screen session
-perl -e 'alarm 90; exec @ARGV' "$APP" gui --selftest || echo "warning: on-screen self-test did not finish"
+# the real window system; reported, not fatal, since build machines may have no screen session.
+# It also saves a picture of the Welcome screen, kept with the build for checking by eye.
+perl -e 'alarm 90; exec @ARGV' "$APP" gui --selftest --screenshot "dist/welcome-screen-macOS-$ARCH.png" \
+    || echo "warning: on-screen self-test did not finish"
 
 ZIP="dist/MergeMusic-$VERSION-macOS-$ARCH.zip"
 ditto -c -k --keepParent dist/MergeMusic.app "$ZIP"
