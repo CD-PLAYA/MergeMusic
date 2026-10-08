@@ -1,5 +1,6 @@
 """MergeMusic window."""
 
+import os
 import sys
 
 from PySide6.QtGui import QIcon
@@ -17,6 +18,9 @@ class MergeWizard(QWizard):
         super().__init__()
         self.project = None
         self.setWindowTitle('%s %s' % (APP_NAME, __version__))
+        # The same look everywhere. The Mac wizard style draws Apple's old Setup Assistant
+        # picture (a tuxedo) down the left side and keeps that column even without it.
+        self.setWizardStyle(QWizard.ModernStyle)
         self.setOption(QWizard.NoBackButtonOnStartPage, True)
         self.setOption(QWizard.NoCancelButtonOnLastPage, True)
         self.setButtonText(QWizard.NextButton, 'Continue')
@@ -74,8 +78,12 @@ def main(args=None):
         def finish():
             ok = (w.isVisible() and len(w.pageIds()) == 8 and icon_path() is not None
                   and w.pages[0].banner.loaded())
-            if shot:
+            if shot:                    # the Welcome page, then the Libraries page
                 w.grab().save(shot)
+                w.next()
+                app.processEvents()
+                root, ext = os.path.splitext(shot)
+                w.grab().save(root + '-libraries' + ext)
             print('GUI self-test: %s (platform %s)' % ('ok' if ok else 'FAILED', app.platformName()))
             app.exit(0 if ok else 1)
         QTimer.singleShot(1500, finish)

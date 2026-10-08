@@ -43,6 +43,7 @@ def test_welcome_banner(qapp, tmp_path):
     w.show()
     for _ in range(20):
         QApplication.processEvents()
+    assert w.wizardStyle() == QWizard.ModernStyle            # no Mac side picture
     welcome = w.pages[0]
     assert welcome.banner.loaded() and welcome.banner.isVisible()
     assert welcome.title() == ''                         # the banner carries the name
