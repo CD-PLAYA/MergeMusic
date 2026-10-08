@@ -8,6 +8,10 @@ on:
   release:
     types: [published]
 
+# The jobs only read the code; the attach job below asks for write access to add the zips.
+permissions:
+  contents: read
+
 jobs:
   build:
     strategy:
