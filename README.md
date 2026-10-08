@@ -93,4 +93,4 @@ Automated tests build sample libraries in real formats (AAC, MP3, AIFF, copy-pro
 
 MergeMusic is free software under the [GNU General Public License v3](LICENSE) or later. It builds on [Mutagen](https://github.com/quodlibet/mutagen), [Chromaprint](https://github.com/acoustid/chromaprint), [beets](https://github.com/beetbox/beets), [Qt for Python](https://wiki.qt.io/Qt_for_Python), and data from [MusicBrainz](https://musicbrainz.org) and [AcoustID](https://acoustid.org). See [packaging/THIRD_PARTY.md](packaging/THIRD_PARTY.md).
 
-Built alongside Claude
+Built with heart, alongside Claude
