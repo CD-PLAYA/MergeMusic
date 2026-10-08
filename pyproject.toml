@@ -20,8 +20,9 @@ classifiers = [
 ]
 dependencies = [
     "mutagen>=1.47",
-    # 6.12 needs macOS 14; 6.11 still runs on macOS 13 Ventura.
-    "PySide6>=6.8,<6.12",
+    # PySide6 6.10 and later are tagged for macOS 13 but their binaries need macOS 15
+    # (found by packaging/check_min_macos.py). 6.9 runs on macOS 12 and later.
+    "PySide6>=6.8,<6.10",
 ]
 
 [project.optional-dependencies]
