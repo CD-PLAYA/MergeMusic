@@ -127,7 +127,7 @@ def main(argv=None):
         return run_beets(argv[1:])
     if not argv or argv[0] == 'gui' or argv[0].startswith('-psn'):
         from .gui.app import main as gui_main
-        return gui_main()
+        return gui_main(argv[1:] if argv and argv[0] == 'gui' else [])
 
     ap = argparse.ArgumentParser(prog='musicmerge', description='%s %s' % (APP_NAME, __version__))
     ap.add_argument('--version', action='version', version=__version__)

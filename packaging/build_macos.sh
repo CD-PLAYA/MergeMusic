@@ -49,6 +49,9 @@ BD="$(mktemp -d)"
 printf 'directory: %s\nlibrary: %s/lib.db\nplugins: [musicbrainz, chroma, fetchart, embedart, inline]\n' "$BD" "$BD" > "$BD/config.yaml"
 BEETSDIR="$BD" "$APP" beets -c "$BD/config.yaml" version | tee "$BD/out.txt"
 grep -q 'plugins: chroma, embedart, fetchart, inline, musicbrainz' "$BD/out.txt"
+QT_QPA_PLATFORM=offscreen "$APP" gui --selftest
+# the real window system; reported, not fatal, since build machines may have no screen session
+perl -e 'alarm 90; exec @ARGV' "$APP" gui --selftest || echo "warning: on-screen self-test did not finish"
 
 ZIP="dist/MusicMerge-$VERSION-macOS-$ARCH.zip"
 ditto -c -k --keepParent dist/MusicMerge.app "$ZIP"

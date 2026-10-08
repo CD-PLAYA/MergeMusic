@@ -63,8 +63,9 @@ def icon_path():
     return None
 
 
-def main():
-    app = QApplication.instance() or QApplication(sys.argv)
+def main(args=None):
+    args = list(args or [])
+    app = QApplication.instance() or QApplication(sys.argv[:1])
     app.setApplicationName(APP_NAME)
     app.setApplicationVersion(__version__)
     if icon_path():
@@ -72,4 +73,11 @@ def main():
     w = MergeWizard()
     w.show()
     w.raise_()
+    if '--selftest' in args:            # used by the build to check the bundled app opens
+        from PySide6.QtCore import QTimer
+        def finish():
+            ok = w.isVisible() and len(w.pageIds()) == 8 and icon_path() is not None
+            print('GUI self-test: %s (platform %s)' % ('ok' if ok else 'FAILED', app.platformName()))
+            app.exit(0 if ok else 1)
+        QTimer.singleShot(1500, finish)
     return app.exec()
