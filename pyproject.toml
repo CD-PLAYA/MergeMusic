@@ -3,7 +3,7 @@ requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "musicmerge"
+name = "mergemusic"
 dynamic = ["version"]
 description = "Merge several iTunes / Music libraries into one clean, duplicate-free library."
 readme = "README.md"
@@ -31,20 +31,20 @@ tags = ["beets==2.14.1", "pyacoustid>=1.3"]
 dev = ["pytest>=8", "numpy", "imageio-ffmpeg"]
 
 [project.scripts]
-musicmerge = "musicmerge.cli:main"
+mergemusic = "mergemusic.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/CD-PLAYA/music-merge"
-Issues = "https://github.com/CD-PLAYA/music-merge/issues"
+Homepage = "https://github.com/CD-PLAYA/merge-music"
+Issues = "https://github.com/CD-PLAYA/merge-music/issues"
 
 [tool.setuptools.dynamic]
-version = { attr = "musicmerge.__version__" }
+version = { attr = "mergemusic.__version__" }
 
 [tool.setuptools.packages.find]
-include = ["musicmerge*"]
+include = ["mergemusic*"]
 
 [tool.setuptools.package-data]
-musicmerge = ["resources/*"]
+mergemusic = ["resources/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

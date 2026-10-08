@@ -1,5 +1,5 @@
 """A merge project: the libraries being merged, the destination folder, and the work
-folder (<destination>/.musicmerge) that holds every plan, map and report.
+folder (<destination>/.mergemusic) that holds every plan, map and report.
 
 Keeping the work folder inside the destination means a merge can be resumed later,
 even from another Mac, as long as the destination folder is there."""

@@ -24,10 +24,10 @@ jobs:
       - name: Install
         run: pip install -e ".[tags,dev]"
       - name: Fingerprint tool
-        run: python -m musicmerge fpcalc --download
+        run: python -m mergemusic fpcalc --download
       - name: Run tests
         env:
           QT_QPA_PLATFORM: offscreen
           # the real-MusicBrainz test runs once, on macOS
-          MUSICMERGE_NETWORK_TESTS: ${{ runner.os == 'macOS' && '1' || '0' }}
+          MERGEMUSIC_NETWORK_TESTS: ${{ runner.os == 'macOS' && '1' || '0' }}
         run: python -m pytest -v

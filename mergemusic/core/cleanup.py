@@ -1,6 +1,6 @@
 """Step 6: what can be deleted afterwards, and how much space that gives back.
 
-MusicMerge never deletes anything itself. This step reports:
+MergeMusic never deletes anything itself. This step reports:
   - the original library folders, which are no longer needed
   - files in them that are not music (videos, PDFs, ...) and were not carried over,
     with a way to save them first

@@ -2,7 +2,7 @@
 import multiprocessing
 import sys
 
-from musicmerge.cli import main
+from mergemusic.cli import main
 
 if __name__ == '__main__':
     multiprocessing.freeze_support()

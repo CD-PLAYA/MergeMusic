@@ -1,6 +1,6 @@
 """The tag step against the real MusicBrainz service.
 
-Slow and needs the internet, so it only runs when MUSICMERGE_NETWORK_TESTS=1.
+Slow and needs the internet, so it only runs when MERGEMUSIC_NETWORK_TESTS=1.
 It builds a complete album whose titles and track lengths match a real release (the audio
 itself is noise), and checks that beets matches and retags it. This guards against the
 beets 2.x "data source" penalty that silently stopped every album from matching."""
@@ -14,8 +14,8 @@ import pytest
 
 from library_factory import ffmpeg_exe
 
-pytestmark = pytest.mark.skipif(os.environ.get('MUSICMERGE_NETWORK_TESTS') != '1',
-                                reason='set MUSICMERGE_NETWORK_TESTS=1 to run')
+pytestmark = pytest.mark.skipif(os.environ.get('MERGEMUSIC_NETWORK_TESTS') != '1',
+                                reason='set MERGEMUSIC_NETWORK_TESTS=1 to run')
 
 ALBUM = [('Don’t Panic', 136866), ('Shiver', 299693), ('Spies', 318773), ('Sparks', 227093),
          ('Yellow', 269200), ('Trouble', 270906), ('Parachutes', 46200), ('High Speed', 254360),
@@ -24,12 +24,12 @@ ALBUM = [('Don’t Panic', 136866), ('Shiver', 299693), ('Spies', 318773), ('Spa
 
 def test_tag_step_matches_a_real_album(tmp_path):
     pytest.importorskip('beets')
-    from musicmerge.core.build import build_merged
-    from musicmerge.core.common import Reporter
-    from musicmerge.core.music_app import history_data
-    from musicmerge.core.plan import build_plan
-    from musicmerge.core.project import Project
-    from musicmerge.core.tags import run_tags
+    from mergemusic.core.build import build_merged
+    from mergemusic.core.common import Reporter
+    from mergemusic.core.music_app import history_data
+    from mergemusic.core.plan import build_plan
+    from mergemusic.core.project import Project
+    from mergemusic.core.tags import run_tags
 
     ff = ffmpeg_exe()
     lib = tmp_path / 'Lib'

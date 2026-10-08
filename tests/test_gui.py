@@ -9,7 +9,7 @@ os.environ.setdefault('QT_QPA_PLATFORM', 'offscreen')
 pytest.importorskip('PySide6')
 from PySide6.QtWidgets import QApplication, QWizard  # noqa: E402
 
-from musicmerge.core.common import is_mac  # noqa: E402
+from mergemusic.core.common import is_mac  # noqa: E402
 
 
 @pytest.fixture(scope='module')
@@ -37,7 +37,7 @@ def setup_libraries(w, libraries, dest):
 
 
 def test_wizard_walkthrough(qapp, libraries, tmp_path, fpcalc):
-    from musicmerge.gui.app import MergeWizard
+    from mergemusic.gui.app import MergeWizard
     w = MergeWizard()
     w.show()
     assert w.currentPage() is w.pages[0]
@@ -92,10 +92,10 @@ def test_wizard_walkthrough(qapp, libraries, tmp_path, fpcalc):
 
 
 def test_resume_earlier_merge(qapp, libraries, tmp_path, fpcalc):
-    from musicmerge.core.common import Reporter
-    from musicmerge.core.plan import build_plan
-    from musicmerge.core.project import Project
-    from musicmerge.gui.app import MergeWizard
+    from mergemusic.core.common import Reporter
+    from mergemusic.core.plan import build_plan
+    from mergemusic.core.project import Project
+    from mergemusic.gui.app import MergeWizard
     dest = str(tmp_path / 'Merged')
     p = Project(dest)
     p.set_libraries([{'path': libraries['a'], 'xml': libraries['xml']}, {'path': libraries['b']}])

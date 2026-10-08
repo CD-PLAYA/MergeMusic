@@ -28,7 +28,7 @@ FPCALC_URL = 'https://github.com/acoustid/chromaprint/releases/download/v{v}/chr
 
 
 def find_fpcalc():
-    """Path to fpcalc, or None. Looks in the app bundle, MusicMerge's own folder, then PATH."""
+    """Path to fpcalc, or None. Looks in the app bundle, MergeMusic's own folder, then PATH."""
     exe = 'fpcalc.exe' if os.name == 'nt' else 'fpcalc'
     env = os.environ.get('FPCALC')
     if env and os.access(env, os.X_OK):
@@ -53,7 +53,7 @@ def fpcalc_download_url():
 
 
 def download_fpcalc(reporter=None):
-    """Fetch fpcalc from the official Chromaprint release into MusicMerge's folder."""
+    """Fetch fpcalc from the official Chromaprint release into MergeMusic's folder."""
     url = fpcalc_download_url()
     if not url:
         raise RuntimeError('No fpcalc download for this system; install Chromaprint yourself.')
