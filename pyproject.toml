@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "musicmerge"
+dynamic = ["version"]
+description = "Merge several iTunes / Music libraries into one clean, duplicate-free library."
+readme = "README.md"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "CD-PLAYA" }]
+keywords = ["itunes", "music", "library", "duplicates", "merge", "musicbrainz", "macos"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: MacOS",
+    "Environment :: MacOS X",
+    "Topic :: Multimedia :: Sound/Audio",
+]
+dependencies = [
+    "mutagen>=1.47",
+    # PySide6 6.10 and later are tagged for macOS 13 but their binaries need macOS 15
+    # (found by packaging/check_min_macos.py). 6.9 runs on macOS 12 and later.
+    "PySide6>=6.8,<6.10",
+]
+
+[project.optional-dependencies]
+# The optional tag clean-up step (beets + MusicBrainz). Pinned to the tested version.
+tags = ["beets==2.14.1", "pyacoustid>=1.3"]
+dev = ["pytest>=8", "numpy", "imageio-ffmpeg"]
+
+[project.scripts]
+musicmerge = "musicmerge.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/CD-PLAYA/music-merge"
+Issues = "https://github.com/CD-PLAYA/music-merge/issues"
+
+[tool.setuptools.dynamic]
+version = { attr = "musicmerge.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["musicmerge*"]
+
+[tool.setuptools.package-data]
+musicmerge = ["resources/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
