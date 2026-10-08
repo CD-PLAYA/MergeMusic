@@ -1,0 +1,81 @@
+name: Bug report
+description: Something went wrong or looks wrong in MergeMusic.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this. The details below help find the cause without a lot of back and forth.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you did, what went wrong, and any message the app showed.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: step
+    attributes:
+      label: Which step?
+      options:
+        - Opening the app
+        - Choose your libraries
+        - Find duplicates
+        - Build the merged library
+        - Clean up tags
+        - Add it to Music
+        - Bring back play history
+        - Clean up
+        - Command line
+        - Something else
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: MergeMusic version
+      description: Shown in the title bar of the MergeMusic window.
+      placeholder: "0.1.1"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: mac
+    attributes:
+      label: Which Mac?
+      options:
+        - Apple Silicon (M1 or later)
+        - Intel
+    validations:
+      required: true
+
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version
+      description: Apple menu > About This Mac.
+      placeholder: "macOS 14.6 Sonoma"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: install
+    attributes:
+      label: How do you run MergeMusic?
+      options:
+        - The downloaded app
+        - From source (Python)
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Activity and work files
+      description: |
+        If you can, click **Show activity** on the step that went wrong, copy what it says, and paste it here.
+        Then drag in files from the hidden `.mergemusic` folder inside your merged library (in Finder, press Cmd+Shift+. to show hidden folders): `plan_summary.txt`, `review.csv` and `build_log.txt`, plus `beets/import.log` for the tag step.
+        These files list your folder names and song titles. Leave out anything you would rather not share.
