@@ -31,3 +31,14 @@ jobs:
           # the real-MusicBrainz test runs once, on macOS
           MERGEMUSIC_NETWORK_TESTS: ${{ runner.os == 'macOS' && '1' || '0' }}
         run: python -m pytest -v
+
+  # A single check named "Tests" that passes only when every test job above passed.
+  # The rule protecting main requires this check before a pull request can be merged.
+  all-tests:
+    name: Tests
+    if: always()
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Every test job passed
+        run: test "${{ needs.test.result }}" = success
