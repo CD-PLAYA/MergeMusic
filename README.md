@@ -30,7 +30,7 @@ Anything doubtful is kept, not dropped: when the tags agree but the audio does n
 
 ## Download and first launch
 
-Download the zip for your Mac from [Releases](https://github.com/CD-PLAYA/merge-music/releases): **x86_64** for Intel Macs, **arm64** for Apple Silicon. It needs macOS 13 Ventura or later.
+Download the zip for your Mac from [Releases](https://github.com/CD-PLAYA/MergeMusic/releases): **x86_64** for Intel Macs, **arm64** for Apple Silicon. It needs macOS 13 Ventura or later.
 
 The app is not signed with an Apple Developer ID, so macOS blocks it the first time:
 
@@ -45,8 +45,8 @@ When you reach the play-history step, macOS asks whether MergeMusic may control 
 ## Run from source
 
 ```bash
-git clone https://github.com/CD-PLAYA/merge-music.git
-cd merge-music
+git clone https://github.com/CD-PLAYA/MergeMusic.git
+cd MergeMusic
 python3 -m venv .venv
 .venv/bin/pip install -e ".[tags]"
 .venv/bin/mergemusic                     # opens the app window
@@ -87,7 +87,7 @@ Everything MergeMusic writes, apart from the merged songs, goes in a hidden `.me
 
 Version 0.1, first public release. The engine started as scripts that merged a real two-library collection of about 7,900 audio files into one library of 6,096 songs, restored its play history and playlists in Music, and freed the duplicate space. The app wraps the same engine in a window and adds any number of libraries, resuming, and the clean-up step.
 
-Automated tests build sample libraries in real formats (AAC, MP3, AIFF, copy-protected names, untagged copies, broken files) and run the scan, build, tag and clean-up steps on Linux and macOS, including a live MusicBrainz match. The scripts that talk to the Music app are tested against a stand-in for Music, and they ran for real on that first library, but the packaged app has only been built and smoke-tested automatically so far. If something goes wrong, please [open an issue](https://github.com/CD-PLAYA/merge-music/issues) and attach the files from the `.mergemusic` folder if you can.
+Automated tests build sample libraries in real formats (AAC, MP3, AIFF, copy-protected names, untagged copies, broken files) and run the scan, build, tag and clean-up steps on Linux and macOS, including a live MusicBrainz match. The scripts that talk to the Music app are tested against a stand-in for Music and ran for real on that first library, and the packaged app was tested end to end by its author, merging two test libraries with overlapping songs and albums. If something goes wrong, please [open an issue](https://github.com/CD-PLAYA/MergeMusic/issues) and attach the files from the `.mergemusic` folder if you can.
 
 ## License
 
